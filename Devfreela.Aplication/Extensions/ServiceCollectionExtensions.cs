@@ -1,18 +1,19 @@
-﻿using Devfreela.Aplication.Services.Implementations;
-using Devfreela.Aplication.Services.Interfaces;
+﻿using Devfreela.Core.Repositories;
 using Devfreela.Infrastructure.Persistence;
+using Devfreela.Infrastructure.Persistence.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Devfreela.Aplication.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static void AddScoped(this IServiceCollection services)
+        public static void AddInjectionDependecies(this IServiceCollection services)
         {
-            services.AddSingleton<DevFreelaDbContext>();
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<ISkillService, SkillService>();
-            services.AddScoped<IProjectService, ProjectService>();
+            services.AddDbContext<DevFreelaDbContext>();
+            services.AddScoped<IProjectRepository, ProjectRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ISkillRepository, SkillRepository>();
         }
     }
 }
