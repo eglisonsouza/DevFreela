@@ -1,7 +1,8 @@
 ﻿using Devfreela.Core.Repositories;
+using Devfreela.Core.Services;
+using Devfreela.Infrastructure.Auth;
 using Devfreela.Infrastructure.Persistence;
 using Devfreela.Infrastructure.Persistence.Repositories;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Devfreela.Aplication.Extensions
@@ -14,6 +15,7 @@ namespace Devfreela.Aplication.Extensions
             services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ISkillRepository, SkillRepository>();
+            services.AddScoped<IAuthService, AuthService>();
         }
     }
 }

@@ -3,6 +3,7 @@ using Devfreela.Aplication.Commands.CreateProject;
 using Devfreela.Aplication.Commands.CreateUser;
 using Devfreela.Aplication.Commands.DeleteProject;
 using Devfreela.Aplication.Commands.FinishProject;
+using Devfreela.Aplication.Commands.LoginUser;
 using Devfreela.Aplication.Commands.StartProject;
 using Devfreela.Aplication.Commands.UpdateProject;
 using MediatR;
@@ -12,7 +13,6 @@ namespace Devfreela.Aplication.Extensions
 {
     public static class MediatRExtensions
     {
-
         public static void AddMediatDependencies(this IServiceCollection services)
         {
             services.AddMediatR(typeof(CreateProjectCommand));
@@ -22,7 +22,7 @@ namespace Devfreela.Aplication.Extensions
             services.AddMediatR(typeof(FinishProjectCommand));
             services.AddMediatR(typeof(StartProjectCommand));
             services.AddMediatR(typeof(UpdateProjectCommand));
+            services.AddMediatR(typeof(LoginUserCommand));
         }
-
     }
 }
