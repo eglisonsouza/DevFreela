@@ -1,8 +1,10 @@
-﻿using Devfreela.Core.Repositories;
+﻿using Devfreela.Aplication.Consumers;
+using Devfreela.Core.Repositories;
 using Devfreela.Core.Services;
 using Devfreela.Infrastructure.Auth;
 using Devfreela.Infrastructure.Persistence;
 using Devfreela.Infrastructure.Persistence.Repositories;
+using Devfreela.Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Devfreela.Aplication.Extensions
@@ -16,6 +18,9 @@ namespace Devfreela.Aplication.Extensions
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ISkillRepository, SkillRepository>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IPaymentService, PaymentService>();
+            services.AddScoped<IMessageBusService, MessageBusService>();
+            services.AddHostedService<PaymentApprovedConsumer>();
         }
     }
 }
