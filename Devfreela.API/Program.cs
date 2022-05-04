@@ -1,5 +1,8 @@
 using Devfreela.API.Filter;
 using Devfreela.Aplication.Extensions;
+using DevFreela.Shared.Models.UI;
+
+const string SETTINGS = "Settings";
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,10 +15,10 @@ builder.Services.AddControllers(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.ConfigureSwagger();
-builder.Services.AddInjectionDependecies();
+builder.Services.AddInjectionDependecies(builder.Configuration);
 builder.Services.AddMediatDependencies();
 builder.Services.AddValidation();
-builder.Services.ConfigureJwt(builder.Configuration);
+builder.Services.ConfigureJwt(builder.Configuration.GetSection(SETTINGS).Get<ApiSettings>());
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.

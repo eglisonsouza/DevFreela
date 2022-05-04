@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Devfreela.Core\Devfreela.Core.csproj" />
+    <ProjectReference Include="..\DevFreela.Shared\DevFreela.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
