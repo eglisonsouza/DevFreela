@@ -23,7 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Devfreela.Infrastructure\Devfreela.Infrastructure.csproj" />
-    <ProjectReference Include="..\DevFreela.Shared\DevFreela.Shared.csproj" />
+    <ProjectReference Include="..\DevFreela.Shared\Devfreela.Shared.csproj" />
   </ItemGroup>
 
 </Project>
