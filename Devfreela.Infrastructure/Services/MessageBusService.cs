@@ -1,5 +1,5 @@
 ﻿using Devfreela.Core.Services;
-using Microsoft.Extensions.Configuration;
+using DevFreela.Shared.Models.UI;
 using RabbitMQ.Client;
 
 namespace Devfreela.Infrastructure.Services
@@ -8,11 +8,16 @@ namespace Devfreela.Infrastructure.Services
     {
         private readonly ConnectionFactory _factory;
 
-        public MessageBusService(IConfiguration configuration)
+        public MessageBusService(ApiSettings apiSettings)
         {
-            _factory = new ConnectionFactory()
+            _factory = CreateConnectionFactory(apiSettings);
+        }
+
+        private ConnectionFactory CreateConnectionFactory(ApiSettings apiSettings)
+        {
+            return new ConnectionFactory
             {
-                HostName = "localhost"
+                HostName = apiSettings.Services.RabbitMQ
             };
         }
 

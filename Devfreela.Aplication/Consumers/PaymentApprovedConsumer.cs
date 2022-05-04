@@ -1,5 +1,6 @@
 ﻿using Devfreela.Core.IntegrationEvent;
 using Devfreela.Core.Repositories;
+using DevFreela.Shared.Models.UI;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RabbitMQ.Client;
@@ -16,23 +17,33 @@ namespace Devfreela.Aplication.Consumers
         private readonly IModel _channel;
         private readonly IServiceProvider _serviceProvider;
 
-        public PaymentApprovedConsumer(IServiceProvider serviceProvider)
+        public PaymentApprovedConsumer(IServiceProvider serviceProvider, ApiSettings apiSettings)
         {
             _serviceProvider = serviceProvider;
-            var factory = new ConnectionFactory
-            {
-                HostName = "localhost"
-            };
 
-            _connection = factory.CreateConnection();
+            _connection = CreateConnection(apiSettings.Services);
+
             _channel = _connection.CreateModel();
 
+            DeclareQueue();
+        }
+
+        private void DeclareQueue()
+        {
             _channel.QueueDeclare(
                 queue: PAYMENT_APPROVED_QUEUE,
                 durable: false,
                 exclusive: false,
                 autoDelete: false,
                 arguments: null);
+        }
+
+        private IConnection CreateConnection(Services services)
+        {
+            return new ConnectionFactory
+            {
+                HostName = services.RabbitMQ
+            }.CreateConnection();
         }
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)

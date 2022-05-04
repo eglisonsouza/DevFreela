@@ -1,17 +1,17 @@
 ﻿using Devfreela.Core.Entities;
+using DevFreela.Shared.Models.UI;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using System.Reflection;
 
 namespace Devfreela.Infrastructure.Persistence
 {
     public class DevFreelaDbContext : DbContext
     {
-        private readonly IConfiguration _configuration;
+        private readonly ConnectionDatabase _connectionDatabase;
 
-        public DevFreelaDbContext(IConfiguration configuration)
+        public DevFreelaDbContext(ApiSettings apiSettings)
         {
-            _configuration = configuration;
+            _connectionDatabase = apiSettings.ConnectionDatabase;
         }
 
         public DbSet<Project> Projects { get; set; }
@@ -26,7 +26,7 @@ namespace Devfreela.Infrastructure.Persistence
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySql(_configuration.GetConnectionString("DevFreela"), new MySqlServerVersion(new Version(5, 7)))
+            optionsBuilder.UseMySql(_connectionDatabase.DevFreela, new MySqlServerVersion(new Version(5, 7)))
                     .EnableSensitiveDataLogging()
                     .EnableDetailedErrors();
         }
